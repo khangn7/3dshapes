@@ -1,6 +1,6 @@
 import {
     Vector
-} from "./math_functions.js"
+} from "./lib/functions/math_functions.js"
 
 // default: true
 export const PERSPECTIVE = true;
