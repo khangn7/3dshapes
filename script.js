@@ -8,10 +8,10 @@ when displaying a 3d vector, we'll only use it's x and y values
 
 */
 
-import { rasterizeTriangle } from "./lib/draw/draw.js";
 import { Vector } from "./lib/functions/math_functions.js";
 import { Cube_coords } from "./lib/shape/coords.js";
 import { CubeShape } from "./lib/shape/shape.js";
+import { FADE_MAX } from "./settings.js";
 
 const Z_CLIP = -50;
 
@@ -21,6 +21,12 @@ canvas_elem.height = window.innerHeight * 1;
 
 // z buffer used in draw.js
 export const Z_BUFFER = Array(canvas_elem.width).fill(Array(canvas_elem.height).fill(-Infinity));
+function resetZBuffer(arr) {
+    let i_n = arr.length;
+    for (let i = 0; i < i_n; i++) {
+        arr[i].fill(-FADE_MAX);
+    }
+}
 
 async function main() {
 
@@ -43,24 +49,29 @@ async function main() {
 
     // return;
     let cube = makeCube(canvas_elem, 1);
+    cube.worldspace_position_set(0, 0, -1000);
     cube.draw_surfaces();
 
-    return;
+    // return;
     
     const paintframe = () => {
         clearCanvas(canvas_elem);
+        // resetZBuffer(Z_BUFFER);
 
         // draw stuff
-
+        cube.draw_surfaces();
     };
     paintframe();
 
+    // return;
 
     const FPS = 60;
 
     let running = false;
 
     let interval;
+
+    let theta = 0;
 
     // GAME LOOP
     document.addEventListener("click", ()=> {
@@ -69,7 +80,12 @@ async function main() {
             running = true
             interval = setInterval(() => {
 
+                theta += 0.02;
+                cube.rotate_xyz(theta, 0);
+                cube.rotate_xyz(theta, 1, true);
+
                 paintframe();
+
         
             }, 1000/FPS);
 
@@ -114,5 +130,5 @@ function makeCube(canvas_elem, scale) {
         );
     }
     const coords = new Cube_coords(points);
-    return new CubeShape(canvas_elem, points);
+    return new CubeShape(canvas_elem, coords);
 }
