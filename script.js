@@ -8,6 +8,7 @@ when displaying a 3d vector, we'll only use it's x and y values
 
 */
 
+import { drawline } from "./lib/draw/draw.js";
 import { Vector } from "./lib/functions/math_functions.js";
 import { Cube_coords } from "./lib/shape/coords.js";
 import { CubeShape } from "./lib/shape/shape.js";
@@ -15,7 +16,7 @@ import { FADE_MAX } from "./settings.js";
 
 const Z_CLIP = -50;
 
-const canvas_elem = document.querySelector("#canvas");
+export const canvas_elem = document.querySelector("#canvas");
 canvas_elem.width = window.innerWidth * 1; // 0.99 is to fit screen
 canvas_elem.height = window.innerHeight * 1;
 
@@ -41,6 +42,30 @@ async function main() {
     if (canvas_elem.height % 2 == 0) {
         canvas_elem.height--;
     }
+
+    const ctx = canvas.getContext("2d");
+
+    while (true) {
+        clearCanvas(canvas_elem);
+
+        let x1 = Math.random() * canvas_elem.width,
+            x2 = Math.random() * canvas_elem.width,
+            y1 = Math.random() * canvas_elem.height,
+            y2 = Math.random() * canvas_elem.height;
+
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke()
+
+        // ctx.fillStyle = "red";
+        // drawline(x1, y1, x2, y2);
+        // ctx.fillStyle = "blue";
+
+
+        await sleep(1000);
+    }
+    return;
 
     // let c1 = new Vector(100, 100, 0);
     // let c2 = new Vector(100, 200, 0);
