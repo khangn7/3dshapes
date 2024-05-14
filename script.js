@@ -45,27 +45,27 @@ async function main() {
 
     const ctx = canvas.getContext("2d");
 
-    while (true) {
-        clearCanvas(canvas_elem);
+    // while (true) {
+    //     clearCanvas(canvas_elem);
 
-        let x1 = Math.random() * canvas_elem.width,
-            x2 = Math.random() * canvas_elem.width,
-            y1 = Math.random() * canvas_elem.height,
-            y2 = Math.random() * canvas_elem.height;
+    //     let x1 = Math.random() * canvas_elem.width,
+    //         x2 = Math.random() * canvas_elem.width,
+    //         y1 = Math.random() * canvas_elem.height,
+    //         y2 = Math.random() * canvas_elem.height;
 
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke()
+    //     ctx.beginPath();
+    //     ctx.moveTo(x1, y1);
+    //     ctx.lineTo(x2, y2);
+    //     ctx.stroke()
 
-        // ctx.fillStyle = "red";
-        // drawline(x1, y1, x2, y2);
-        // ctx.fillStyle = "blue";
+    //     // ctx.fillStyle = "red";
+    //     // drawline(x1, y1, x2, y2);
+    //     // ctx.fillStyle = "blue";
 
 
-        await sleep(1000);
-    }
-    return;
+    //     await sleep(1000);
+    // }
+    // return;
 
     // let c1 = new Vector(100, 100, 0);
     // let c2 = new Vector(100, 200, 0);
@@ -83,14 +83,34 @@ async function main() {
         clearCanvas(canvas_elem);
         // resetZBuffer(Z_BUFFER);
 
-        // draw stuff
-        cube.draw_surfaces();
+        // // draw stuff
+        // cube.draw_surfaces();
+
+
+        // let x1 = Math.random() * canvas_elem.width,
+        // x2 = Math.random() * canvas_elem.width,
+        // y1 = Math.random() * canvas_elem.height,
+        // y2 = Math.random() * canvas_elem.height;
+
+        // x1 = Math.round(x1);
+        // x2 = Math.round(x2);
+        // y1 = Math.round(y1);
+        // y2 = Math.round(y2);
+
+        // ctx.beginPath();
+        // ctx.moveTo(x1, y1);
+        // ctx.lineTo(x2, y2);
+        // ctx.stroke()
+
+        // ctx.fillStyle = "red";
+        // drawline(x1, y1, x2, y2);
+        // ctx.fillStyle = "blue";
     };
     paintframe();
 
     // return;
 
-    const FPS = 60;
+    const FPS = 1;
 
     let running = false;
 
@@ -110,7 +130,6 @@ async function main() {
                 cube.rotate_xyz(theta, 1, true);
 
                 paintframe();
-
         
             }, 1000/FPS);
 
